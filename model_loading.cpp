@@ -87,13 +87,15 @@ int main()
     // build and compile shaders
     // -------------------------
     // 
-    Shader ourShader("C:\\Users\\home\\Documents\\OpenGL\\learning_Projects\\ModelLoading\\1.model_loading.vs", "C:\\Users\\home\\Documents\\OpenGL\\learning_Projects\\ModelLoading\\1.model_loading.fs");
+    Shader ourShader("C:\\Users\\home\\Documents\\OpenGL\\learning_Projects\\ModelLoading\\model_loading.vs", "C:\\Users\\home\\Documents\\OpenGL\\learning_Projects\\ModelLoading\\model_loading.fs");
 
     // load models
     // -----------
     // C:\\Users\\home\\Documents\\OpenGL\\resources
     //vector<Model> models;
-    Model ourModel("C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\backpack\\backpack.obj");
+    Model ourModel("C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_000001.obj");
+        //cyborg\\cyborg.obj");
+        //frame_obj\\cara_000001.obj");
     //const string pathS = "C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_";
     //for (int i = 1; i < 2; i++) {
     //    stringstream ss;
@@ -103,7 +105,7 @@ int main()
     //    cout << pathStr;
     //    models.push_back(Model(pathStr, false, RESOURCE_FOLDER));
     //}
-
+    // 
     // draw in wireframe;
     // 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -128,7 +130,7 @@ int main()
 
         // render
         // ------
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClearColor(1.0f,1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // don't forget to enable shader before setting uniforms
@@ -142,8 +144,11 @@ int main()
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        model = glm::translate(model, glm::vec3(-1.0f, -1.0f, -1.0f)); // translate it down so it's at the center of the scene
+        glm::vec3 scaled = glm::vec3(1.0f, 1.0f, 1.0f);
+        
+
+        model = glm::scale(model,  scaled);	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 

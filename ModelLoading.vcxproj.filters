@@ -29,10 +29,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\LearnOpenGL-master\LearnOpenGL-master\src\3.model_loading\1.model_loading\1.model_loading.fs">
+    <None Include="..\..\..\..\Downloads\LearnOpenGL-master\LearnOpenGL-master\src\3.model_loading\1.model_loading\model_loading.fs">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="..\..\..\..\Downloads\LearnOpenGL-master\LearnOpenGL-master\src\3.model_loading\1.model_loading\1.model_loading.vs">
+    <None Include="..\..\..\..\Downloads\LearnOpenGL-master\LearnOpenGL-master\src\3.model_loading\1.model_loading\model_loading.vs">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
