@@ -54,7 +54,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(2*SCR_WIDTH, 2*SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -96,35 +96,60 @@ int main()
     Model ourModel("C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_000001.obj");
         //cyborg\\cyborg.obj");
         //frame_obj\\cara_000001.obj");
-    //const string pathS = "C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_";
-    //for (int i = 1; i < 2; i++) {
-    //    stringstream ss;
-    //    ss << setw(6) << setfill('0') << i;
-    //    string s = ss.str();
-    //    string pathStr = pathS + s + ".obj";
-    //    cout << pathStr;
-    //    models.push_back(Model(pathStr, false, RESOURCE_FOLDER));
-    //}
-    // 
+   /* const string pathS = "C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_";
+    vector<string> pathsOfModel;
+    string s, pathStr;
+    for (int j = 1; j< 2; j++) {
+
+        stringstream ss;
+        ss << setw(6) << setfill('0') << j;
+        s = ss.str();
+        pathStr = pathS + s + ".obj";
+        cout << pathStr;
+        pathsOfModel.push_back(pathStr);
+    }
+   */  
     // draw in wireframe;
     // 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+    //Model ourModel;
     //int i = 0;
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
         
+        /*if (i == 2) {
+            i = 0;
+        }*/
         // per-frame time logic
         // --------------------
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+        
+        /*cout << "Current Frame:: " << currentFrame << endl;
+        cout << "Delta Time:: " << deltaTime << endl;
+        cout << "Last Frame:: " << lastFrame << endl;
+*/
 
-        //Model ourModel = models.at(i);
-        //i++;
-        // input
+        /*pathStr = pathsOfModel.at(i);
+
+        if (models.size() == 2) {
+            ourModel = models.at(i);
+        }
+        else {
+            ourModel = Model(pathStr, false, RESOURCE_FOLDER);
+
+            models.push_back(ourModel);
+        }
+
+        if (deltaTime > 5.0f) {
+            i++;
+            lastFrame = currentFrame;
+        }*/
+
+        //     input
         // -----
         processInput(window);
 
@@ -132,7 +157,7 @@ int main()
         // ------
         glClearColor(1.0f,1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+         
         // don't forget to enable shader before setting uniforms
         ourShader.use();
 
@@ -146,7 +171,8 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(-1.0f, -1.0f, -1.0f)); // translate it down so it's at the center of the scene
         glm::vec3 scaled = glm::vec3(1.0f, 1.0f, 1.0f);
-        
+        //glTranslatef(1.0,1.0,1.0);
+        //glScalef(2.0, 2.0, 2.0);
 
         model = glm::scale(model,  scaled);	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
