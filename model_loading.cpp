@@ -107,12 +107,15 @@ int main()
         pathStr = pathS + s + ".obj";
         cout << pathStr;
         pathsOfModel.push_back(pathStr);
+        models.push_back(Model(pathStr, false, RESOURCE_FOLDER));
     }
-     
+    
+    cout << "Model vector loaded" << endl;
     // draw in wireframe;
     // 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     Model ourModel;
+    //Model ourModel("C:\\Users\\home\\Documents\\OpenGL\\resources\\objects\\frame_obj\\cara_000015.obj");
     int i = 0;
     // render loop
     // -----------
@@ -126,23 +129,25 @@ int main()
         // --------------------
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
-        
-        cout << "Current Frame:: " << currentFrame << endl;
-        cout << "Delta Time:: " << deltaTime << endl;
-        cout << "Last Frame:: " << lastFrame << endl;
-
+                
         pathStr = pathsOfModel.at(i);
 
-        if (models.size() == 281) {
+        //if (models.size() == 9) {
             ourModel = models.at(i);
-        }
-        else {
-            ourModel = Model(pathStr, false, RESOURCE_FOLDER);
-            models.push_back(ourModel);
-        }
+        //}
+        //else {
+          //  ourModel = Model(pathStr, false, RESOURCE_FOLDER);
+          //  models.push_back(ourModel);
+       // }
 
         if (deltaTime > 2.0f) {
+            cout << "CHANGED: " << i << endl;
+            cout << "Current Frame:: " << currentFrame << endl;
+            cout << "Delta Time:: " << deltaTime << endl;
+            cout << "Last Frame:: " << lastFrame << endl;
+
             i++;
+
             lastFrame = currentFrame;
         }
 
@@ -161,15 +166,23 @@ int main()
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
+        view = glm::scale(view, glm::vec3(30.0f, 30.0f,30.0f));
+        view = glm::translate(view, glm::vec3(0.0f, -1.0f, -1.0f));
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-1.0f, -1.0f, -1.0f)); // translate it down so it's at the center of the scene
-        glm::vec3 scaled = glm::vec3(1.0f, 1.0f, 1.0f);
-
-        model = glm::scale(model,  scaled);	// it's a bit too big for our scene, so scale it down
+        //model = glm::translate(model, glm::vec3(-1.0f, -1.0f, -1.0f)); // translate it down so it's at the center of the scene
+        
+        //model = glm::translate(model, glm::vec3(-1.0f, -1.0f, -0.5f)); // translate it down so it's at the center of the scene
+        /*model = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(0.0f, 3.0f, 0.0f));
+            */
+        model = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(0.0f, 2.0f, 0.0f));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
 
